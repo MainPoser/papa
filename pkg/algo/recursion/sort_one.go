@@ -4,12 +4,11 @@ import "fmt"
 
 func sortOne(arr []int) {
 	for i := 0; i < len(arr); i++ {
-		min := arr[i]
 		for j := i + 1; j < len(arr); j++ {
-			if arr[j] < min {
-				tmp := min
-				min = arr[j]
-				arr[j] = tmp
+			if arr[j] < arr[i] {
+				tmp := arr[j]
+				arr[j] = arr[i]
+				arr[i] = tmp
 			}
 		}
 	}
