@@ -108,5 +108,4 @@ func main() {
 		return s == "1"
 	})
 	fmt.Printf("newStr: %v\n", newStr)
-
 }
