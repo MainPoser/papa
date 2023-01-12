@@ -10,7 +10,7 @@ func Test_sortOne(t *testing.T) {
 		name string
 		args args
 	}{
-		{name: "test_one", args: args{arr: []int{1, 5, 4, 7, 8, 2, 0, 9}}},
+		{name: "test_one", args: args{arr: []int{1, 5, 4, 7, 8, 2, 0, 9, 99, 1000, 233, 523}}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

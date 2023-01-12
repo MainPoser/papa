@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strings"
 )
 
 type funcType func(string) bool //代表筛选逻辑函数，可以按需实现
@@ -14,6 +13,57 @@ func filter(a []string, f funcType) []string {
 		}
 	}
 	return a
+}
+
+// 连接节点
+type DoubleLinkNode struct {
+	Value interface{}     // 数据
+	Pre   *DoubleLinkNode // 上一个节点
+	Next  *DoubleLinkNode // 下一个节点
+}
+
+func ReverseDoubleLinkNode(head *DoubleLinkNode) *DoubleLinkNode {
+	var pre *DoubleLinkNode
+	var next *DoubleLinkNode
+
+	if head != nil {
+		// 保留下次要执行的节点
+		next = head.Next
+		head.Next = pre
+		head.Pre = next
+		// 将head加入到pre中
+		pre = head
+		// 下次执行的节点赋值给head
+		head = next
+	}
+	return pre
+}
+
+func RangeDouble(max int) *DoubleLinkNode {
+	head := &DoubleLinkNode{}
+	cur := head
+	var pre *DoubleLinkNode
+	for i := 0; i < max; i++ {
+		if cur == nil {
+			cur = &DoubleLinkNode{}
+		}
+		cur.Value = i
+		if pre != nil {
+			pre.Next = cur
+		}
+		cur.Pre = pre
+		pre = cur
+		cur = cur.Next
+	}
+	return head
+}
+
+// 打印链表
+func PrintDoubleLink(head *DoubleLinkNode) {
+	if head != nil {
+		fmt.Print(head.Value, " ")
+		PrintDoubleLink(head.Next)
+	}
 }
 
 // 连接节点
@@ -95,17 +145,23 @@ func reverse(s []string) []string {
 }
 
 func main() {
-	// 字符串倒序
-	str := "192.168.19.100,2022::19:100"
-	fmt.Println(strings.Join(reverse(strings.Split(str, ",")), ","))
-	// 链表倒序
-	ln := &LinkNode{}
-	ln.Range(10)
-	ln.Reverse()
-	ln.Print()
-	// 过滤集合
-	newStr := filter([]string{"8", "2", "1", "4", "5"}, func(s string) bool {
-		return s == "1"
-	})
-	fmt.Printf("newStr: %v\n", newStr)
+	// // 字符串倒序
+	// str := "192.168.19.100,2022::19:100"
+	// fmt.Println(strings.Join(reverse(strings.Split(str, ",")), ","))
+	// // 链表倒序
+	// ln := &LinkNode{}
+	// ln.Range(10)
+	// ln.Reverse()
+	// ln.Print()
+	// // 过滤集合
+	// newStr := filter([]string{"8", "2", "1", "4", "5"}, func(s string) bool {
+	// 	return s == "1"
+	// })
+	// fmt.Printf("newStr: %v\n", newStr)
+
+	// 双向链表
+	dln := RangeDouble(10)
+	PrintDoubleLink(dln)
+	dln2 := ReverseDoubleLinkNode(dln)
+	PrintDoubleLink(dln2)
 }
