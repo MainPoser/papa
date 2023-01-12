@@ -26,13 +26,15 @@ func ReverseDoubleLinkNode(head *DoubleLinkNode) *DoubleLinkNode {
 	var pre *DoubleLinkNode
 	var next *DoubleLinkNode
 
-	if head != nil {
+	for head != nil {
 		// 保留下次要执行的节点
 		next = head.Next
+
 		head.Next = pre
 		head.Pre = next
 		// 将head加入到pre中
 		pre = head
+
 		// 下次执行的节点赋值给head
 		head = next
 	}
